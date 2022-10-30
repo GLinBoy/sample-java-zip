@@ -36,6 +36,13 @@ public class App {
 				.type(Number.class)
 				.hasArg()
 				.build();
+		Option outputOption = Option.builder("o")
+				.longOpt("output")
+				.argName("output")
+				.desc("Path to save result of compression")
+				.type(String.class)
+				.hasArg()
+				.build();
 		Option helpOption = Option.builder("h")
 				.longOpt("help")
 				.argName("help")
@@ -47,6 +54,7 @@ public class App {
 		options.addOption(secretOption);
 		options.addOption(sizeOption);
 		options.addOption(helpOption);
+		options.addOption(outputOption);
 		CommandLine cmd;
 		CommandLineParser parser = new DefaultParser();
 		HelpFormatter helper = new HelpFormatter();
@@ -62,7 +70,10 @@ public class App {
 				log.info("has password variable: {}", cmd.getParsedOptionValue("password"));
 			}
 			if (cmd.hasOption("size")) {
-				log.info("has password variable: {}", cmd.getParsedOptionValue("size"));
+				log.info("has size variable: {}", cmd.getParsedOptionValue("size"));
+			}
+			if (cmd.hasOption("output")) {
+				log.info("has output variable: {}", cmd.getParsedOptionValue("output"));
 			}
 		} catch (ParseException e) {
 			log.error(e.getMessage());
